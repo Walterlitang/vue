@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./lib/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- esc按键事件 -->
+    esc事件：<input type="text" @keyup.esc="clearInp"><br>
+    <!-- enter按键事件 -->
+    enter事件：<input type="text" @keyup.enter="entInp">
+  </div>
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data: {},
+      methods: {
+        //按下esc键清空input框的值
+        clearInp(e) {
+          console.log(e);//得到键盘事件
+          e.target.value = "";//将
+        },
+        entInp(e) {
+          //按下enter键触发事件
+          console.log("触发了键盘enter事件");
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

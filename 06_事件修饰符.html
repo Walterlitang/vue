@@ -12,7 +12,15 @@
 <body>
   <div id="app">
     <!-- 阻止默认事件 -->
-    <a href="http://www.baidu.com" @click.prevent="jump">点击跳转</a>
+    <a href="http://www.baidu.com" @click.prevent="show">点击跳转</a>
+
+    <hr>
+
+    <!-- 阻止冒泡 -->
+
+    <div style="line-height: 150px;height:150px;padding-left:20px;background:orange;" @click="divHandler">
+      <button @click.stop="btnHandler">按钮</button>
+    </div>
   </div>
   <script>
     const vm = new Vue({
@@ -20,8 +28,14 @@
       data: {
       },
       methods: {
-        jump() {
-          console.log("abc");
+        show() {
+          console.log("点击了a链接");
+        },
+        divHandler() {
+          console.log("divHandler");
+        },
+        btnHandler() {
+          console.log("btnHandler");
         }
       }
     })
