@@ -10,11 +10,31 @@
 </head>
 
 <body>
-  <div id="app">{{username}}</div>
+  <div id="app">
+    <!-- 双向数据绑定 -->
+    <span>{{username}}</span><br>
+    <input type="text" v-model="username">
+
+    <!-- v-bind只能单向绑定 -->
+    <hr>
+    <input type="text" :value="username">
+
+    <!-- 下拉选项框绑定v-model -->
+    <hr>
+    <select v-model="city">
+      <option value="">请选择</option>
+      <option value="1">北京</option>
+      <option value="2">上海</option>
+      <option value="3">广州</option>
+      <option value="4">深圳</option>
+    </select>
+  </div>
   <script>
     const vm = new Vue({
       el: "#app",
       data: {
+        username: "zhangsan",
+        city: "2"
       }
     })
   </script>

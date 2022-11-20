@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style type="text/css">
+    /* .chooseBtn {
+      display: none;
+    }
+
+    .choose-label {
+      box-shadow: #ccc 0px 0px 0px 1px;
+      width: 40px;
+      height: 20px;
+      display: inline-block;
+      border-radius: 20px;
+      position: relative;
+      background-color: #bdbdbd;
+      overflow: hidden;
+    }
+
+    .choose-label:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+      border-radius: 20px;
+      background-color: #fff;
+      z-index: 20;
+      -webkit-transition: all 0.5s;
+      transition: all 0.5s;
+    }
+
+    .chooseBtn:checked+label.choose-label:before {
+      left: 20px;
+    }
+
+    .chooseBtn:checked+label.choose-label {
+      background-color: #51ccee;
+    } */
+
+    .box {
+      appearance: none;
+      box-shadow: #ccc 0px 0px 0px 1px;
+      width: 40px;
+      height: 20px;
+      border-radius: 20px;
+      position: relative;
+      padding: 2px;
+    }
+
+    /*在复选框中加了一个心 并且让他变得透明 复选框和单选框是单标签中可以用:after和:beofre的 */
+    .box::after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border-radius: 16px;
+      background-color: #bdbdbd;
+      z-index: 20;
+      -webkit-transition: all 0.5s;
+      transition: all 0.5s;
+    }
+
+    /* 操作选中之后添入的心的颜色 */
+    .box:checked {
+      background-color: #0078ff;
+      box-shadow: #0078ff 0px 0px 0px 1px;
+    }
+
+    .box:checked::after {
+      left: 20px;
+      background-color: white;
+    }
+  </style>
+  <script src="./vue.js"></script>
+</head>
+
+<body>
+  <!-- <input type="checkbox" name="sex" :id="item.id" v-model="item.status" class="chooseBtn" />
+  <label :for="item.id" class="choose-label" v-if="item.status">已启用</label> -->
+  <div id="app">
+    <form action="./vue.js" method="get" @submit.prevent="add">
+      <input type="text" v-model.trim="val">
+      <input type="submit" value="添加">
+    </form>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>索引</th>
+          <th>品牌</th>
+          <th>状态</th>
+          <th>时间</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(item,index) in list" :key="item.id">
+          <td>{{item.id}}</td>
+          <td>{{item.name}}</td>
+          <td>
+            <input type="checkbox" class="box" v-model="item.status">
+            <label v-if="item.status">已启用</label>
+            <label v-else>已禁用</label>
+          </td>
+          <td>{{item.time}}</td>
+          <td>
+            <a href="#" @click.prevent="del(item.id)">删除</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        list: [
+          { id: 0, name: "宝马", status: true, time: new Date() },
+          { id: 1, name: "奔驰", status: true, time: new Date() },
+          { id: 2, name: "奥迪", status: false, time: new Date() },
+          { id: 3, name: "特斯拉", status: true, time: new Date() },
+
+        ],
+        val: "",
+        nextId: 4
+      },
+      methods: {
+        add() {
+          if (this.val == "") return alert("品牌名不能为空");
+          const obj = {
+            id: this.nextId++,
+            name: this.val,
+            status: true,
+            time: new Date()
+          };
+          this.list.push(obj);
+          this.val = ""
+        },
+        del(id) {
+          this.list = this.list.filter(item => item.id != id);
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

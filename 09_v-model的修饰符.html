@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./lib/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 注意：当输入框中的值发生变化时，数据源会变成字符串类型，这是可以使用number修饰符 -->
+    <input type="text" v-model.number="n1">+
+    <input type="text" v-model.number="n2">=
+    {{n1+n2}}
+
+    <!-- 自动过滤到首尾空格字符 -->
+    <hr>
+    <input type="text" v-model.trim="username">
+    <button @click="show">点击</button>
+
+    <!-- 失去焦点时数据源更新 -->
+    <hr>
+    <input type="text" v-model.lazy="username">
+  </div>
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        username: "zhangsan",
+        n1: 1,
+        n2: 2
+      },
+      methods: {
+        show() {
+          console.log(`用户名是"${this.username}"`);
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
