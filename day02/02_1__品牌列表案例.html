@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style type="text/css">
+    .box {
+      appearance: none;
+      box-shadow: #ccc 0px 0px 0px 1px;
+      width: 40px;
+      height: 20px;
+      border-radius: 20px;
+      position: relative;
+      padding: 2px;
+    }
+
+    .box::after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border-radius: 16px;
+      background-color: #bdbdbd;
+      z-index: 20;
+      -webkit-transition: all 0.5s;
+      transition: all 0.5s;
+    }
+
+    .box:checked {
+      background-color: #0078ff;
+      box-shadow: #0078ff 0px 0px 0px 1px;
+    }
+
+    .box:checked::after {
+      left: 20px;
+      background-color: white;
+    }
+  </style>
+  <script src="./lib/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <form action="./vue.js" method="get" @submit.prevent="add">
+      <input type="text" v-model.trim="val">
+      <input type="submit" value="添加">
+    </form>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>索引</th>
+          <th>品牌</th>
+          <th>状态</th>
+          <th>时间</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(item,index) in list" :key="item.id">
+          <td>{{item.id}}</td>
+          <td>{{item.name}}</td>
+          <td>
+            <input type="checkbox" class="box" v-model="item.status">
+            <label v-if="item.status">已启用</label>
+            <label v-else>已禁用</label>
+          </td>
+          <td>{{item.time|dataFormat}}</td>
+          <td>
+            <a href="#" @click.prevent="del(item.id)">删除</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <script>
+    // 将时间用过滤器重写
+    Vue.filter("dataFormat", (time) => {
+      var year = time.getFullYear();
+      var month = time.getMonth() + 1;
+      var tian = time.getDate();
+      var hours = time.getHours();
+      var minutes = time.getMinutes();
+      var seconds = time.getSeconds();
+      return `${year}-${month}-${tian} ${hours}:${minutes}:${seconds}`;
+    })
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        list: [
+          { id: 0, name: "宝马", status: true, time: new Date() },
+          { id: 1, name: "奔驰", status: true, time: new Date() },
+          { id: 2, name: "奥迪", status: false, time: new Date() },
+          { id: 3, name: "特斯拉", status: true, time: new Date() }
+        ],
+        val: "",
+        nextId: 4
+      },
+      methods: {
+        add() {
+          if (this.val == "") return alert("品牌名不能为空");
+          const obj = {
+            id: this.nextId++,
+            name: this.val,
+            status: true,
+            time: new Date()
+          };
+          this.list.push(obj);
+          this.val = ""
+        },
+        del(id) {
+          this.list = this.list.filter(item => item.id != id);
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

@@ -6,10 +6,34 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <script src="./lib/vue.js"></script>
 </head>
 
 <body>
-
+  <div id="app">
+    <!-- 过滤器写在管道符后面 -->
+    <p>message的值是:{{msg|capi(10)|cap}}</p>
+  </div>
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        msg: "hello vue.js"
+      },
+      //过滤器函数必须被定义到filters节点中
+      //过滤器本质上是一个函数
+      filters: {
+        //过滤器中第一个形参永远是管道符前面那个值
+        capi(a) {
+          //过滤器中一定要有返回值
+          return a[0].toUpperCase() + a.slice(1);
+        },
+        cap(val) {
+          return val + 1;
+        }
+      }
+    })
+  </script>
 </body>
 
 </html>

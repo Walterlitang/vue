@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./lib/jquery-1.11.3.js"></script>
+  <script src="./lib/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <input type="text" v-model="username">
+    <div v-show="isShow">
+      <span v-if="flag" style="color: green;">用户名可用</span>
+      <span v-else style="color: red;">用户名被占用</span>
+    </div>
+  </div>
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        username: "",
+        flag: "",
+        isShow: false
+      },
+      //所有侦听器都应该被定义在watch节点上
+      watch: {
+        // 对象格式的侦听器
+        username: {
+          //侦听器处理函数
+          handler(newVal, oldVal) {
+            console.log("abc");
+            //新值，旧值
+            //新值在前，旧值在后
+            this.isShow = true;
+            $.get("http://127.0.0.1:8080/v1/users/chuckuname?uname=" + newVal, (res) => {
+              //发送Ajax请求，查询用户填写的值是否被占用
+              res.code === 201 ? this.flag = true : this.flag = false;
+            })
+          },
+          //立即执行监听器函数
+          immediate: true
+        },
+
+      }
+    })
+  </script>
+</body>
+
+</html>
