@@ -12,6 +12,7 @@
 <body>
   <div id="app">
     <!-- 过滤器写在管道符后面 -->
+    <!-- 过滤器串联使用，接收的是过滤器处理后的值 -->
     <p>message的值是:{{msg|capi(10)|cap}}</p>
   </div>
   <script>
