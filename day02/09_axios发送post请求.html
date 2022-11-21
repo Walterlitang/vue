@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./lib/axios.js"></script>
+  <script src="./lib/jquery-1.11.3.js"></script>
+</head>
+
+<body>
+  <button onclick="fun()">点击</button>
+  <script>
+    //方法一：添加header
+    async function fun() {
+      //解构赋值
+      const { data } = await axios({
+        method: "post",
+        url: "http://127.0.0.1:8080/v1/users/login",
+        // 查阅axios 文档可以知道：axios 使用 post 发送数据时，默认是直接把 json 放到请求体中提交到后端的。
+        // 也就是说，我们的 Content-Type 变成了 application/json;charset=utf-8,所以添加一下headers
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        data: {
+          uname: "dingding",
+          upwd: "123456"
+        }
+      });
+      console.log(res);
+    }
+
+    //方法二：使用URLSearchParams对象
+    let param = new URLSearchParams()
+    param.append('uname', 'admin')
+    param.append('upwd', 'admin')
+    const r = axios({
+      method: "post",
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      url: "http://127.0.0.1:8080/v1/users/login",
+      data: param
+    })
+    r.then(res => {
+      console.log(res);
+    })
+  </script>
+</body>
+
+</html>
