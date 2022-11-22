@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./lib/axios.js"></script>
+</head>
+
+<body>
+  <button onclick="btnGet()">GET请求</button><br>
+  <button onclick="btnPost()">POST请求</button>
+  <script>
+    async function btnGet() {
+      //axios发送get请求
+      const { data } = await axios.get("http://127.0.0.1:8080/v1/users/chuckuname", {
+        params: {
+          uanme: "dingding"
+        }
+      })
+      console.log(data);
+    }
+    async function btnPost() {
+      //axios发送post请求
+      const { data } = await axios.post("http://127.0.0.1:8080/v1/users/login",
+        {
+          uname: "dingding",
+          upwd: "123456"
+        },
+        {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" }
+        }
+      );
+      console.log(data);
+    }
+  </script>
+</body>
+
+</html>

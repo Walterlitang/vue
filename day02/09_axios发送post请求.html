@@ -27,7 +27,7 @@
           upwd: "123456"
         }
       });
-      console.log(res);
+      console.log(data);
     }
 
     //方法二：使用URLSearchParams对象
@@ -36,10 +36,9 @@
     param.append('upwd', 'admin')
     const r = axios({
       method: "post",
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       url: "http://127.0.0.1:8080/v1/users/login",
       data: param
-    })
+    });
     r.then(res => {
       console.log(res);
     })
