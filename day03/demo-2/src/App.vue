@@ -25,9 +25,6 @@ export default {
     Left,
     Right,
   },
-  created() {
-    console.log(this)
-  },
   methods: {
     num(val) {
       this.n = val

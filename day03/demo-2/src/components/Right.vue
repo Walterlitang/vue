@@ -2,11 +2,15 @@
   <div id="right">
     <p>Right组件</p>
     <p>count的值:{{count}}</p>
+    <!-- 子传父 -->
     <button @click="show">+1</button>
+    <!-- 兄弟之间共享数据 -->
+
   </div>
 </template>
 
 <script>
+import bus from './EventBus'
 export default {
   data() {
     return {
@@ -16,12 +20,14 @@ export default {
   },
   created() {
     this.$emit('numchange', this.count)
+    bus.$on('share', (val) => {
+      console.log(val)
+    })
   },
   methods: {
     show() {
       this.count++
       this.$emit('numchange', this.count)
-      console.log(this)
     },
   },
 }

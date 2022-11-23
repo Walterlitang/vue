@@ -21,7 +21,7 @@ export default {
   },
   methods: {
     send() {
-      bus.$emit('shar', sendToRight)
+      bus.$emit('share', this.sendToRight)
     },
   },
 }
