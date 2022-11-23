@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    const arr = [
+      { id: 1, name: "西瓜", state: true },
+      { id: 2, name: "香蕉", state: true },
+      { id: 3, name: "苹果", state: false }
+    ];
+    const res = arr.every(item => typeof item.id == "number");//括号里写的是判断条件
+    console.log(res);
+  </script>
+</body>
+
+</html>

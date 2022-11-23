@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    var arr = ["梅西", "C罗", "莫德里奇", "穆勒", "内马尔"];
+    /* 
+      arr.forEach((item, index) => {
+        if (item == "穆勒") {
+          console.log("ok");
+          return;
+        }
+        console.log(1);//输出四次，说明中间没有停止循环
+      }) 
+    */
+    arr.some((item, index) => {
+      if (item == "穆勒") {
+        console.log("ok");
+        return true;
+      }
+      console.log(1);//输出四次，说明中间没有停止循环
+    })
+  </script>
+</body>
+
+</html>
