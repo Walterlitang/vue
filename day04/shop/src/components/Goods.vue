@@ -2,24 +2,27 @@
   <div class="goods">
     <input type="checkbox"
            :checked="goods_state"
-           @click="changeState">
+           @change="changeState">
     <img :src="goods_img">
     <div class="content">
       <p class="title">{{goods_name}}</p>
       <div class="footer">
         <span class="price">￥{{goods_price}}</span>
-        <div class="computed">
-          <button>+</button>
-          <span>{{goods_count}}</span>
-          <button>-</button>
-        </div>
+        <Count :count="goods_count"
+               :id="id"
+               @addCount="add"
+               @subCount="sub"></Count>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Count from '@/components/Count.vue'
 export default {
+  components: {
+    Count,
+  },
   props: {
     goods_img: {
       type: String,
@@ -47,8 +50,16 @@ export default {
     },
   },
   methods: {
-    changeState() {
-      this.$emit('inpChange', this.id)
+    changeState(e) {
+      const state = e.target.checked
+      this.$emit('inpChange', { id: this.id, goods_state: state })
+    },
+    add(val) {
+      console.log(2)
+      this.$emit('add-count', val)
+    },
+    sub(val) {
+      this.$emit('sub-count', val)
     },
   },
 }
@@ -113,26 +124,5 @@ img {
 .title {
   margin-right: 20px;
   font-weight: bold;
-}
-.computed {
-  float: right;
-  margin-right: 20px;
-}
-button {
-  appearance: none;
-  border: 0;
-  margin: 0px 10px;
-  width: 10px;
-  font-size: 15px;
-  background-color: white;
-}
-.computed > span {
-  display: inline-block;
-  width: 30px;
-  height: 20px;
-  line-height: 20px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  text-align: center;
 }
 </style>
