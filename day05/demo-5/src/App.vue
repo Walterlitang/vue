@@ -1,18 +1,31 @@
 <template>
   <div id="app">
-    <img alt="Vue logo"
-         src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <!-- 普通组件的加载 -->
+    <!-- <Left></Left>
+    <Right></Right> -->
+    <!-- 动态组件 -->
+    <button @click="cName='Left'">切换成Left组件</button>
+    <button @click="cName='Right'">切换成Right组件</button>
+    <keep-alive include="MyLeft,Right">
+      <!-- 将内部组件缓存，组件状态不会发生变化 -->
+      <component :is="cName"></component>
+    </keep-alive>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import Left from '@/components/Left.vue'
+import Right from '@/components/Right.vue'
 export default {
   name: 'App',
+  data() {
+    return {
+      cName: 'Right',
+    }
+  },
   components: {
-    HelloWorld,
+    Left,
+    Right,
   },
 }
 </script>
