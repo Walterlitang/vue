@@ -2,6 +2,11 @@
   <div>
     <h2>Left组件----{{count}}</h2>
     <button @click="count++">+1</button>
+    <hr>
+    <slot name="def"></slot>
+    <slot name="nam"></slot>
+    <hr>
+    <p v-color="'red'">这是一个p标签</p>
   </div>
 </template>
 

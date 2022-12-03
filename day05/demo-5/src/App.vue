@@ -8,8 +8,18 @@
     <button @click="cName='Right'">切换成Right组件</button>
     <keep-alive include="MyLeft,Right">
       <!-- 将内部组件缓存，组件状态不会发生变化 -->
-      <component :is="cName"></component>
+      <component :is="cName">
+        <template #def>
+          <p>这是一个擦超</p>
+        </template>
+        <template #nam>
+          <h2>这是一个name擦超</h2>
+        </template>
+      </component>
     </keep-alive>
+    <hr>
+    <p v-color="color">这是自定义指令v-color</p>
+    <button @click="color='red'">改变颜色</button>
   </div>
 </template>
 
@@ -21,11 +31,27 @@ export default {
   data() {
     return {
       cName: 'Right',
+      color: 'blue',
     }
   },
   components: {
     Left,
     Right,
+  },
+  // 自定义指令
+  directives: {
+    //注册自定义指令v-color
+    color: {
+      bind(el, binding) {
+        //bind函数会在绑定元素的时候执行
+        el.style.color = binding.value
+      },
+      update(el, binding) {
+        //每次dom元素更新的时候触发函数
+        console.log('dom元素更新触发函数')
+        el.style.color = binding.value
+      },
+    },
   },
 }
 </script>
