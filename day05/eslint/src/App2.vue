@@ -6,6 +6,7 @@
     <router-link to="/about">about</router-link>&emsp;&emsp;&emsp;
     <router-link to="/movie">movie</router-link>&emsp;&emsp;&emsp;
     <button @click="show">跳转到movie组件</button>
+    <router-link to="/main">跳转到后台主页</router-link>
     <hr>
     <router-view></router-view>
   </div>

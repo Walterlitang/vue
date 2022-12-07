@@ -5,6 +5,8 @@ import VueRouter from 'vue-router'
 import about from '@/components/MyAbout.vue'
 import book from '@/components/MyBook.vue'
 import home from '@/components/MyHome.vue'
+import login from '@/components/MyLogin.vue'
+import main from '@/components/MyMain.vue'
 import movie from '@/components/MyMovie.vue'
 import tab1 from '@/components/tabs/MyTab1.vue'
 import tab2 from '@/components/tabs/MyTab2.vue'
@@ -32,8 +34,26 @@ const router = new VueRouter({
         { path: '', component: book },
         { path: 'book/:id', component: book, props: true }
       ]
-    }
+    },
+    { path: '/main', component: main },
+    { path: '/login', component: login }
   ]
+})
+// 全局路由导航守卫
+router.beforeEach((to, from, next) => {
+  // to表示将要去的页面的信息
+  // from表示来的页面的信息
+  // next表示放行
+  if (to.path === '/main') {
+    const token = localStorage.getItem('tokenapi')
+    if (token) {
+      next()// 如果token值存在，放行
+    } else {
+      next('/login')// 如果token不存在，跳转到login页面
+    }
+  } else {
+    next()
+  }
 })
 // 4.导出router对象
 export default router
